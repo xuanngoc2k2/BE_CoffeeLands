@@ -1,0 +1,86 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit User <%=dataUser.firstName %></title>
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+
+        <!-- Popper JS -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1><%=dataUser.firstName %></h1>
+            <form action="/put-crud" method="post">
+                <input name="id" value="<%=dataUser.id%>" hidden />
+                <div class="form-group">
+                    <label for="inputUsername">Username</label>
+                    <input name="username" type="text" class="form-control"
+                        id="inputUsername"
+                        value="<%= dataUser.username %>"
+                        placeholder="Username">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Email</label>
+                        <input name="email" type="email" class="form-control"
+                            id="inputEmail4"
+                            value="<%= dataUser.email %>"
+                            placeholder="Email">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Password</label>
+                        <input name="password" type="password"
+                            class="form-control"
+                            id="inputPassword4"
+                            value="<%=dataUser.password%>"
+                            placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputFirstName">First Name</label>
+                    <input name="firstname" type="text" class="form-control"
+                        id="inputAddress"
+                        value="<%= dataUser.firstName %>"
+                        placeholder="1234 Main St">
+                </div>
+                <div class="form-group">
+                    <label for="inputLastName ">Last Name</label>
+                    <input name="lastname" type="text" class="form-control"
+                        value="<%= dataUser.lastName %>"
+                        id="inputAddress2"
+                        placeholder="Apartment, studio, or floor">
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Address</label>
+                    <input name="address" type="text" class="form-control"
+                        id="inputAddress"
+                        value="<%= dataUser.address %>"
+                        placeholder="1234 Main St">
+                </div>
+                <div class="form-group">
+                    <label for="inputAdmin">Admin</label>
+                    <select name="admin" class="form-control">
+                        <% if (dataUser.admin === 0) { %>
+                        <option value="0" selected>False</option>
+                        <option value="1">True</option>
+                        <% } else { %>
+                        <option value="0">False</option>
+                        <option value="1" selected>True</option>
+                        <% } %>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </body>
+</html>

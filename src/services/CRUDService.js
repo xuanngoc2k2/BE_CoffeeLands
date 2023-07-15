@@ -23,6 +23,18 @@ const createNewUser = async (data) => {
     });
 }
 
+const hashUserPassword = (password) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let hashPw = await bcrypt.hashSync(password, salt);
+            resolve(hashPw);
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
+
 const getAllUser = async () => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -35,14 +47,48 @@ const getAllUser = async () => {
         }
     })
 }
-const hashUserPassword = (password) => {
+
+export const getUserById = (userid) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let hashPw = await bcrypt.hashSync(password, salt);
-            resolve(hashPw);
+            let user = await db.User.findOne({
+                where: { id: userid },
+                raw: true
+            })
+            if (user) {
+                resolve(user)
+            }
+            else {
+                resolve({})
+            }
+        } catch (error) {
+            reject(error)
         }
-        catch (e) {
-            reject(e);
+    })
+}
+
+export const updateUser = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({ where: { id: data.id } })
+            if (user) {
+                user.firstName = data.firstname;
+                user.lastName = data.lastname;
+                user.email = data.email;
+                user.address = data.address;
+                user.password = data.password;
+                user.username = data.username;
+
+                await user.save();
+
+                let alluser = await db.User.findAll();
+                resolve(alluser);
+            }
+            else {
+                resolve("Update Fail");
+            }
+        } catch (error) {
+            reject(error);
         }
     })
 }
