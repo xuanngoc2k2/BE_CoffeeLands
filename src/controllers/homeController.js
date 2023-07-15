@@ -48,7 +48,8 @@ export const putCRUD = async (req, res) => {
 
 export const deleteCRUD = async (req, res) => {
     let idUser = req.query.id;
-    if (idUser) {
+    let userData = await CRUDService.getUserById(userId);
+    if (userData) {
         let dataN = await CRUDService.deleteUserById(idUser);
         return res.render('displayCRUD.ejs', { dataTable: dataN });
     }
